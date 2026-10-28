@@ -20,6 +20,10 @@ ligne, on le fait.
       mesure, et sa projection média–média qui porte le résultat. L'arête entre
       deux médias dit co-positionnement, jamais influence : undirected, et la
       version résiduelle après VARX à côté de la brute.
+- [.] Explorer pas à pas NER puis ton ciblé — DE seul, une votation du bloc A
+      (A-631), toutes personnes et organisations, ton *envers* l'acteur
+      seulement. Quelques modèles choisis à la main par étape, chaque sortie
+      lue avant de passer à la suivante.
 - [ ] Prototyper le ton ciblé par fenêtre de mention — Cardiff XLM-R sur ±1
       phrase autour de chaque mention, une fenêtre, une langue, un outlet. Deux
       acteurs dans la même phrase reçoivent le même score : limite admise, pas
