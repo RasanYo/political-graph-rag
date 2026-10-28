@@ -12,6 +12,12 @@ dependencies = [
     "pandas>=3.0.5",
     "pyarrow>=25.0.1",
     "anthropic>=2.3.0",
+    "torch>=2.15.0",
+    "gliner>=0.2.29",
+    "spacy>=3.8.18",
+    "de-core-news-lg",
+    "sentencepiece>=0.2.2",
+    "protobuf>=7.36.2",
 ]
 
 [project.optional-dependencies]
@@ -40,3 +46,14 @@ select = ["E", "F", "I", "UP", "B"]
 # This file embeds notebook markdown -- its long lines are prose and table rows,
 # and wrapping them would break the rendered tables.
 "scripts/make_explore_notebook.py" = ["E501"]
+
+# No GPU on the dev machine: take torch from the CPU-only index, so a dependency
+# that pulls torch (gliner) does not swap in the multi-GB CUDA build.
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+de-core-news-lg = { url = "https://github.com/explosion/spacy-models/releases/download/de_core_news_lg-3.8.0/de_core_news_lg-3.8.0-py3-none-any.whl" }
