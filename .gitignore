@@ -250,3 +250,6 @@ __marimo__/
 data/raw/
 data/cache/
 data/corpus/
+
+# Intermediate tables derived from the corpus can hold article text.
+data/interim/
