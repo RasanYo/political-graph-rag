@@ -13,6 +13,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DATA_RAW = REPO_ROOT / "data" / "raw"  # gitignored cache
 DATA_OUT = REPO_ROOT / "data" / "out"  # versioned outputs
+DATA_INTERIM = REPO_ROOT / "data" / "interim"  # gitignored caches
+DATA_REVIEW = REPO_ROOT / "data" / "review"  # versioned hand decisions
 MANIFEST_PATH = DATA_OUT / "manifest.json"
 
 # ---------------------------------------------------------------- window ----

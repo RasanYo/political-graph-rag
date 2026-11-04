@@ -46,6 +46,11 @@ select = ["E", "F", "I", "UP", "B"]
 # This file embeds notebook markdown -- its long lines are prose and table rows,
 # and wrapping them would break the rendered tables.
 "scripts/make_explore_notebook.py" = ["E501"]
+# Prompts must stay byte-exact: they are part of the Haiku cache keys, so rewrapping
+# one would change the key and pay for new answers.
+"src/mediapos/relevance.py" = ["E501"]
+"src/mediapos/ner.py" = ["E501"]
+"src/mediapos/linking.py" = ["E501"]
 
 # No GPU on the dev machine: take torch from the CPU-only index, so a dependency
 # that pulls torch (gliner) does not swap in the multi-GB CUDA build.

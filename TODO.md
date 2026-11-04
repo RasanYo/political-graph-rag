@@ -39,6 +39,8 @@ ligne, on le fait.
 
 *On coupe à 3 mois. Plus ancien, ça vit dans le `DEVLOG.md`.*
 
+- [x] 2026-11-04 — Alléger le notebook 02 — le calcul passe dans `mediapos`, le
+      notebook garde les étapes et les tableaux, et chaque module a ses tests.
 - [x] 2026-09-14 — Le répertoire d'événements d'amorçage
       20 événements (8 votations, 4 élections du Conseil fédéral, 3 suisses hors
       calendrier, 1 contrôle consensuel, 4 internationaux en diagnostic), choisis
