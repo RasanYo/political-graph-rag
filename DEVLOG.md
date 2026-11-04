@@ -38,6 +38,60 @@ Omettre si aucun.]
 
 ---
 
+## 2026-11-04 — Des articles d'une votation aux comptes par entité Wikidata
+
+**Ce qu'on voulait**
+Le graphe média–acteur exige de savoir, article par article, qui est nommé et
+combien de fois, avec *SVP* et *Schweizerische Volkspartei* sur un seul nœud. On
+n'avait que des archives brutes. On a prototypé sur une tranche : DE seul, une
+votation (A-631, Begrenzungsinitiative).
+
+**Comment on a procédé**
+Filtre regex sur le nom de l'initiative (1 086 articles), balisage vers texte,
+label de pertinence par Haiku (473). spaCy, GLiNER et Haiku comparés sur les mêmes
+articles ; seul Haiku continue, avec un balisage en ligne réaligné sur l'original.
+Puis normalisation entre articles, résolution des noms vagues article par article,
+liaison Wikidata (règle, puis Haiku, puis seconde recherche sous le nom officiel)
+et fusion par QID. Une revue à la main a ensuite retiré 130 articles. Enfin le
+calcul est passé du notebook 02 aux modules `preprocess`, `relevance`, `ner`,
+`actors` et `linking`, avec les premiers tests du paquet.
+
+**Le résultat**
+343 articles, 9 139 mentions, 621 entités, 92,1 % des mentions sous un QID.
+`entity_per_article` donne le compte par article, et un assert vérifie que les
+sommes retombent sur les totaux. Les 9 partis de référence et Kurt Fluri sont
+trouvés avec le bon QID ; Fässler et Piller Carrard sont à 0, ce qui est juste
+pour ces articles. Après le passage en modules, les deux tables sont identiques à
+une référence sauvée avant, sans aucun nouvel appel, et 35 tests passent.
+
+**Décisions à retenir**
+- Demander à Haiku une liste de noms puis la chercher dans le texte ne marche pas :
+  toute graphie absente de la liste était perdue, surtout les noms de famille seuls.
+  Remplacé par le balisage en ligne, à ne pas retenter.
+- Le label de Haiku ne suffit pas. Il ne lit que le début de l'article, et les deux
+  plus gros articles « related » étaient des tickers locaux, soit 8,4 % des
+  mentions balisées. D'où `data/review/a631_relevance_review.csv`.
+- Cette revue déplace la visibilité, et pas uniformément : SVP −19 %, FDP −41 %,
+  CVP −49 %, SP −66 %. Retirer les articles sur l'accord-cadre (rang 4) est un
+  jugement, et il pèse surtout sur le CVP. La méthode doit le dire.
+- Une classe Wikidata (P279) n'est jamais un acteur, sinon *Stadtrat* fusionne les
+  conseils de plusieurs villes. Un lieu sans siège n'est pas une organisation,
+  sinon les Verts deviennent le hameau de Grünen.
+- Pas de `maxlag` sur des lectures, et une réponse d'erreur n'est jamais mise en
+  cache : 326 erreurs *too busy* passaient pour des recherches vides.
+- Les prompts restent octet pour octet : ils font partie des clés de cache Haiku.
+
+**Différé, volontairement**
+Aucune mesure de précision : la vérification à la main du top 200 a été
+abandonnée, et 222 articles ont été gardés sur leur seul titre. Les copies d'un
+même texte entre médias comptent encore séparément. Ce code reste exploratoire,
+limité à A-631, sans seed ni manifeste : rien n'en sort pour le rapport tel quel.
+Le ton ciblé vient ensuite, sur une autre branche.
+
+**Commits :** `8bac5c9`, `19bebd6`, `292f7ff`, `9d8a9dd`, `b6289bb`, `0394fb7`, `8442781`, `ca93b97`, `cb04cc6`
+
+---
+
 ## 2026-09-14 — Le répertoire d'événements d'amorçage : 20 événements suisses, reproductibles, avec leurs acteurs en QID
 
 **Ce qu'on voulait**
